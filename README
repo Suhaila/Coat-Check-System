@@ -1,6 +1,12 @@
 This is a university project that aims to speed up the process of checking in and retrieving a coat at a coat check service.
 
-To run this script (so far):
+1. I've added 'Arduino_Controller' to... well... Control the Arduino board :)
+
+So far running this script gets the first Arduino board to transmit a signal to the second Arduino board and turn on the LED.
+
+2. I've renamed 'Main' to 'Write_to_CSV' (since we might not be using this anymore)
+
+To run the 'Write_to_CSV' script:
 - Open up a command prompt (cmd) 
 - Navigate to the directory with the project by typing (replace the "..." with the rest of the path on your local machine):
 	cd 'C:/users/.../Coat-Check-System/ 
