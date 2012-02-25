@@ -47,6 +47,9 @@ class CoatCheckGTK:
 					found = 1
 			if found == 0:
 				print "Did not find name." 
+				
+	def on_btnEnd_clicked(self, widget):
+		print "stop blinking"
 			
 		
 if __name__ =="__main__":
