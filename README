@@ -14,6 +14,5 @@ To run the 'Write_to_CSV' script:
 	python Main.py
 - VOILA! It should work! (Verify this by opening Sample_data.csv and making sure that line 4 is added)
 
-The UItest.py opens the UI and will write a hard coded variable to coats.csv. I still need to figure out how to get it to pull
-information from the text entry field in Glade for the Check Coat side then how to search within the csv on the Retrieve side.
-It shouldn't be too complicated but I haven't figured it out yet.
+The UItest.py opens the UI and will write a name and hanger to the csv, it needs to be typed into the box. Now need to determine
+how to search within the csv on the Retrieve side.
