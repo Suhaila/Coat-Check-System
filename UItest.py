@@ -14,6 +14,7 @@ csvFile = 'Coats.csv'
 Hanger = ''
 Name = ''
 #RetName = RetName
+found = 0
 
 class CoatCheckGTK:
 
@@ -36,8 +37,16 @@ class CoatCheckGTK:
 			writer.writerow([Hanger, Name])
 						
 	def on_btnRet_clicked(self, widget): #search for input hanger number, print hangernum
-		with open(csvFile, 'ab') as f:		# open file for appending - 'ab'
-			print "Hello World!"
+		with open(csvFile, 'rb') as f:		# open file for reading - 'rb'
+			#reader = csv.reader(f)
+			RetName = self.glade.get_object("RetName").get_text()
+			found = 0
+			for row in f:						
+				if row.find (RetName) != -1:
+					print "Hanger", row[0]
+					found = 1
+			if found == 0:
+				print "Did not find name." 
 			
 		
 if __name__ =="__main__":
