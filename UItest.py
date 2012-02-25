@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 
-#second attempt at getting something from Glade to run in python, so I can make pretty things
+#import needed modules
 
 import pygtk
 pygtk.require("2.0")
 import gtk
 import gtk.glade
+import csv
+
+# define some variables
+csvFile = 'Coats.csv'
+Hanger = HangerNum
+Name = CheckName
+RetName = RetName
 
 class CoatCheckGTK:
 
@@ -19,8 +26,15 @@ class CoatCheckGTK:
 	def on_MainWindow_destroy(self, widget, data=None):
 		gtk.main_quit()
 		
-	def on_btnHelloWorld_clicked(self, widget):
+	def on_btnCheck_clicked(self, widget):
+		# Append a new row to csvFile (hardcoded for now until variables are functioning) 
+		with open(csvFile, 'ab') as f:		# open file for appending - 'ab'
+			writer = csv.writer(f)
+			writer.writerow(['Hanger', 'Name'])
+	def on_btnRet_clicked(self, widget): #search for input hanger number, print hangernum
+		with open(csvFile, 'ab') as f:		# open file for appending - 'ab'
 		print "Hello World!"
+			
 		
 if __name__ =="__main__":
 	try:
