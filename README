@@ -1,18 +1,9 @@
 This is a university project that aims to speed up the process of checking in and retrieving a coat at a coat check service.
 
-1. I've added 'Arduino_Controller' to... well... Control the Arduino board :)
-
-So far running this script gets the first Arduino board to transmit a signal to the second Arduino board and turn on the LED.
-
-2. I've renamed 'Main' to 'Write_to_CSV' (since we might not be using this anymore)
-
-To run the 'Write_to_CSV' script:
+To run the 'CoatCheck.py' script:
 - Open up a command prompt (cmd) 
 - Navigate to the directory with the project by typing (replace the "..." with the rest of the path on your local machine):
-	cd 'C:/users/.../Coat-Check-System/ 
+	cd 'C:/.../Coat-Check-System/ 
 - In the command prompt, type:
-	python Main.py
-- VOILA! It should work! (Verify this by opening Sample_data.csv and making sure that line 4 is added)
-
-The UItest.py opens the UI and will write a name and hanger to the csv, it needs to be typed into the box. Now need to determine
-how to search within the csv on the Retrieve side.
+	python CoatCheck.py
+- VOILA! It should bring up the UI!
