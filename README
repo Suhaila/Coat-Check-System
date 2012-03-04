@@ -1,0 +1,9 @@
+This is a university project that aims to speed up the process of checking in and retrieving a coat at a coat check service.
+
+To run the 'CoatCheck.py' script:
+- Open up a command prompt (cmd) 
+- Navigate to the directory with the project by typing (replace the "..." with the rest of the path on your local machine):
+	cd 'C:/.../Coat-Check-System/ 
+- In the command prompt, type:
+	python CoatCheck.py
+- VOILA! It should bring up the UI!
