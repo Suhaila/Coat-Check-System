@@ -31,11 +31,14 @@
                     <property name="width_chars">20</property>
                     <attributes>
                       <attribute name="style" value="oblique"/>
+                      <attribute name="weight" value="heavy"/>
                       <attribute name="size" value="300"/>
+                      <attribute name="absolute-size" value="300"/>
+                      <attribute name="foreground" value="#ffff00003207"/>
                     </attributes>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
+                    <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="padding">10</property>
                     <property name="position">0</property>
@@ -64,6 +67,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Name</property>
+                        <attributes>
+                          <attribute name="size" value="100"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -111,6 +117,9 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Hanger Number</property>
                         <property name="wrap">True</property>
+                        <attributes>
+                          <attribute name="size" value="100"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -198,11 +207,13 @@
                     <property name="justify">center</property>
                     <attributes>
                       <attribute name="style" value="oblique"/>
+                      <attribute name="weight" value="heavy"/>
                       <attribute name="size" value="300"/>
+                      <attribute name="foreground" value="#ffff00003207"/>
                     </attributes>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
+                    <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="padding">10</property>
                     <property name="position">0</property>
@@ -230,6 +241,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Name</property>
+                        <attributes>
+                          <attribute name="size" value="100"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -275,6 +289,10 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Hanger Number</property>
+                        <property name="wrap">True</property>
+                        <attributes>
+                          <attribute name="size" value="100"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -289,6 +307,7 @@
                         <property name="height_request">75</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="editable">False</property>
                         <property name="invisible_char">●</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
@@ -375,6 +394,7 @@
             <property name="height_request">50</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="editable">False</property>
             <property name="invisible_char">●</property>
             <property name="primary_icon_activatable">False</property>
             <property name="secondary_icon_activatable">False</property>
