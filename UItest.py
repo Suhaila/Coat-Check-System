@@ -1,17 +1,19 @@
-# This script controls the Coat Check System
-
 #!/usr/bin/env python
+
+#import needed modules
 
 import pygtk
 pygtk.require("2.0")
 import gtk
 import gtk.glade
 import csv
-import serial
 
+# define some variables
 csvFile = 'Coats.csv'
+
 Hanger = ''
 Name = ''
+#RetName = RetName
 found = 0
 
 class CoatCheckGTK:
@@ -27,15 +29,12 @@ class CoatCheckGTK:
 		gtk.main_quit()
 		
 	def on_btnCheck_clicked(self, widget):
-		# Append a new row to csvFile
+		# Append a new row to csvFile (hardcoded for now until variables are functioning) 
 		with open(csvFile, 'ab') as f:		# open file for appending - 'ab'
 			writer = csv.writer(f)
 			Name = self.glade.get_object("CheckName").get_text()
 			Hanger = self.glade.get_object("CheckNum").get_text()
 			writer.writerow([Hanger, Name])
-			
-			self.glade.get_object("CheckName").set_text('')
-			self.glade.get_object("CheckNum").set_text('')
 						
 	def on_btnRet_clicked(self, widget): #search for input hanger number, print hangernum
 		with open(csvFile, 'rb') as f:		# open file for reading - 'rb'
@@ -44,24 +43,16 @@ class CoatCheckGTK:
 			found = 0
 			for row in f:						
 				if row.find (RetName) != -1:
-					arduino.write(row[0])
-					print RetName + "'s coat on Hanger", row[0]
+					print "Hanger", row[0]
 					found = 1
 			if found == 0:
-				print "*** Did not find name ***" 
-
+				print "Did not find name." 
+				
 	def on_btnEnd_clicked(self, widget):
-		arduino.write('E')
-		self.glade.get_object("RetName").set_text('')
+		print "stop blinking"
+			
 		
 if __name__ =="__main__":
-	# Connect to Arduino
-	try:  
-		arduino = serial.Serial('COM3', 9600)
-		print 'Connected...'
-	except:  
-		print "Failed to connect on COM3" 
-	
 	try:
 		a = CoatCheckGTK()
 		gtk.main()
