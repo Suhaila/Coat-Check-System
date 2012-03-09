@@ -37,18 +37,22 @@ class CoatCheckGTK:
 			self.glade.get_object("CheckName").set_text('')
 			self.glade.get_object("CheckNum").set_text('')
 						
+
 	def on_btnRet_clicked(self, widget): #search for input hanger number, print hangernum
-		with open(csvFile, 'rb') as f:		# open file for reading - 'rb'
+		with open(csvFile, 'rb') as f:	 # open file for reading - 'rb'
 			#reader = csv.reader(f)
 			RetName = self.glade.get_object("RetName").get_text()
 			found = 0
-			for row in f:						
-				if row.find (RetName) != -1:
-					arduino.write(row[0])
-					print RetName + "'s coat on Hanger", row[0]
-					found = 1
-			if found == 0:
-				print "*** Did not find name ***" 
+			for row in f:
+				if row.find(RetName) != -1:
+					elementsinrow = row.rsplit(',')
+					yummyelement = elementsinrow[1]
+					if len(RetName) == (len(yummyelement) -2):
+						arduino.write(row[0])
+						print RetName + "'s coat on Hanger", elementsinrow[0]
+						found = 1
+					if found == 0:
+						print "*** Did not find name ***" 
 
 	def on_btnEnd_clicked(self, widget):
 		arduino.write('E')
@@ -67,3 +71,5 @@ if __name__ =="__main__":
 		gtk.main()
 	except KeyboardInterrupt:
 		pass
+
+#Justin things that the print commande for the UI will be something like glade.this_space().print, 
