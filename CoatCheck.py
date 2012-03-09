@@ -48,23 +48,49 @@ class CoatCheckGTK:
 					elementsinrow = row.rsplit(',')
 					yummyelement = elementsinrow[1]
 					if len(RetName) == (len(yummyelement) -2):
-						arduino.write(row[0])
+						arduino.write(elementsinrow[0])
 						self.glade.get_object("RetNum").set_text(elementsinrow[0])
 						found = 1
 					if found == 0:
-						self.glade.get_object("RetNum").set_text("*** Did not find name ***")  
+						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
+				if found == 0:
+						self.glade.get_object("RetNum").set_text("*** Did not find name ***")		
 
 	def on_btnEnd_clicked(self, widget):
 		arduino.write('E')
-		self.glade.get_object("RetName").set_text('')
-		self.glade.get_object("RetNum").set_text('')
+		# pull 
+		
+		with open(csvFile, 'rb') as f:	 # open file for reading - 'rb'
+			#reader = csv.reader(f)
+			RetName = self.glade.get_object("RetName").get_text()
+			found = 0
+			for row in f:
+				if row.find(RetName) != -1:
+					elementsinrow = row.rsplit(',')
+					yummyelement = elementsinrow[1]
+					if len(RetName) == (len(yummyelement) -2):
+						#self.glade.get_object("RetNum").set_text(elementsinrow[0])
+						found = 1
+						hangernumber = elementsinrow[0]
+					if found == 0:
+						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
+				if found == 0:
+						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
+		
 		#remove from csv		
-		#with open(csvFile, 'ab') as f:
-		#	writer = csv.writer(f)
+		with open(csvFile, 'r+b') as f:
+			writer = csv.writer(f)
+			for row in f:
+				elementsinrow = row.rsplit(',')
+				if elementsinrow[0].startswith(hangernumber):
+					writer.writerow(" ")
+		
+		self.glade.get_object("RetName").set_text('')
+		self.glade.get_object("RetNum").set_text('Search for hanger')
+		#remove from csv
+		#with open(csvFile, 'wb') as f:
 		#	for row in f:
-		#		if not row[0].startswith("yummyelement"):
-		#			writer.writerow(row)
-		#		writer.close()
+		#		row.remove("RetName")# sees this as a string
 		
 if __name__ =="__main__":
 	# Connect to Arduino
