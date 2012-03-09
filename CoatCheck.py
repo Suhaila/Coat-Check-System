@@ -10,6 +10,7 @@ import csv
 import serial
 
 csvFile = 'Coats.csv'
+buffer = 'buffer.csv'
 Hanger = ''
 Name = ''
 found = 0
@@ -78,19 +79,22 @@ class CoatCheckGTK:
 						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
 		
 		#remove from csv		
-		with open(csvFile, 'r+b') as f:
-			writer = csv.writer(f)
-			for row in f:
-				elementsinrow = row.rsplit(',')
-				if elementsinrow[0].startswith(hangernumber):
-					writer.writerow(" ")
+		with open(csvFile, 'rb') as f:
+			with open(buffer, 'wb') as b:
+				writer = csv.writer(b)
+				for row in f:
+					elementsinrow = row.rsplit(',')
+					if not elementsinrow[0].startswith(hangernumber):
+						b.write(row)# it's just adding to the file I have no idea how to make it actually overwrite the file. 
+		with open(csvFile, 'wb') as f:
+			with open(buffer, 'rb') as b:
+				for row in b:
+					f.write(row)
+		
 		
 		self.glade.get_object("RetName").set_text('')
 		self.glade.get_object("RetNum").set_text('Search for hanger')
-		#remove from csv
-		#with open(csvFile, 'wb') as f:
-		#	for row in f:
-		#		row.remove("RetName")# sees this as a string
+		
 		
 if __name__ =="__main__":
 	# Connect to Arduino
