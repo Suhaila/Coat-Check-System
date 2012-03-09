@@ -49,27 +49,35 @@ class CoatCheckGTK:
 					yummyelement = elementsinrow[1]
 					if len(RetName) == (len(yummyelement) -2):
 						arduino.write(row[0])
-						print RetName + "'s coat on Hanger", elementsinrow[0]
+						self.glade.get_object("RetNum").set_text(elementsinrow[0])
 						found = 1
 					if found == 0:
-						print "*** Did not find name ***" 
+						self.glade.get_object("RetNum").set_text("*** Did not find name ***")  
 
 	def on_btnEnd_clicked(self, widget):
 		arduino.write('E')
 		self.glade.get_object("RetName").set_text('')
+		self.glade.get_object("RetNum").set_text('')
+		#remove from csv		
+		#with open(csvFile, 'ab') as f:
+		#	writer = csv.writer(f)
+		#	for row in f:
+		#		if not row[0].startswith("yummyelement"):
+		#			writer.writerow(row)
+		#		writer.close()
 		
 if __name__ =="__main__":
 	# Connect to Arduino
 	try:  
 		arduino = serial.Serial('COM3', 9600)
+		#self.glade.get_object("ErrorLine").set_text('Connected...')
 		print 'Connected...'
 	except:  
 		print "Failed to connect on COM3" 
+		#self.glade.get_object("ErrorLine").set_text("Failed to connect on COM3")
 	
 	try:
 		a = CoatCheckGTK()
 		gtk.main()
 	except KeyboardInterrupt:
 		pass
-
-#Justin things that the print commande for the UI will be something like glade.this_space().print, 
