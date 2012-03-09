@@ -26,7 +26,10 @@ class CoatCheckGTK:
 		
 	def on_MainWindow_destroy(self, widget, data=None):
 		gtk.main_quit()
-		
+	
+	def on_entry_activate(self, widget):
+		widget.get_toplevel().child_focus(gtk.DIR_TAB_FORWARD)
+	
 	def on_btnCheck_clicked(self, widget):
 		# Append a new row to csvFile
 		with open(csvFile, 'ab') as f:		# open file for appending - 'ab'
@@ -34,10 +37,11 @@ class CoatCheckGTK:
 			Name = self.glade.get_object("CheckName").get_text()
 			Hanger = self.glade.get_object("CheckNum").get_text()
 			writer.writerow([Hanger, Name])
-			
+			# Clear contents
 			self.glade.get_object("CheckName").set_text('')
 			self.glade.get_object("CheckNum").set_text('')
-						
+			# Move focus to Name field
+			self.glade.get_object("CheckName").grab_focus()
 
 	def on_btnRet_clicked(self, widget): #search for input hanger number, print hangernum
 		with open(csvFile, 'rb') as f:	 # open file for reading - 'rb'
@@ -55,7 +59,7 @@ class CoatCheckGTK:
 					if found == 0:
 						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
 				if found == 0:
-						self.glade.get_object("RetNum").set_text("*** Did not find name ***")		
+						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
 
 	def on_btnEnd_clicked(self, widget):
 		arduino.write('E')
@@ -77,6 +81,9 @@ class CoatCheckGTK:
 						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
 				if found == 0:
 						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
+				
+				self.glade.get_object("RetName").set_text('')
+				self.glade.get_object("RetName").grab_focus()
 		
 		#remove from csv		
 		with open(csvFile, 'rb') as f:

@@ -32,15 +32,16 @@
                     <attributes>
                       <attribute name="style" value="oblique"/>
                       <attribute name="weight" value="heavy"/>
-                      <attribute name="size" value="300"/>
+                      <attribute name="size" value="50"/>
                       <attribute name="absolute-size" value="300"/>
-                      <attribute name="foreground" value="#ffff00003207"/>
+                      <attribute name="foreground" value="#ae9275d7f785"/>
+                      <attribute name="scale" value="100"/>
                     </attributes>
                   </object>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="padding">10</property>
+                    <property name="padding">12</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -84,16 +85,22 @@
                         <property name="height_request">75</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="events">GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_MOTION_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON2_MOTION_MASK | GDK_BUTTON3_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_FOCUS_CHANGE_MASK | GDK_STRUCTURE_MASK | GDK_PROPERTY_CHANGE_MASK | GDK_VISIBILITY_NOTIFY_MASK | GDK_PROXIMITY_IN_MASK | GDK_PROXIMITY_OUT_MASK | GDK_SUBSTRUCTURE_MASK | GDK_SCROLL_MASK</property>
+                        <property name="extension_events">all</property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
                         <property name="primary_icon_sensitive">True</property>
                         <property name="secondary_icon_sensitive">True</property>
+                        <accelerator key="Return" signal="move-focus"/>
+                        <accelerator key="Return" signal="move-focus"/>
+                        <accelerator key="Return" signal="move-cursor"/>
+                        <signal name="activate" handler="on_entry_activate" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="fill">False</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -135,11 +142,14 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
+                        <property name="activates_default">True</property>
                         <property name="invisible_char_set">True</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
                         <property name="primary_icon_sensitive">True</property>
                         <property name="secondary_icon_sensitive">True</property>
+                        <accelerator key="Return" signal="move-focus"/>
+                        <signal name="activate" handler="on_entry_activate" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -160,13 +170,15 @@
                 <child>
                   <object class="GtkButton" id="btnCheck">
                     <property name="label" translatable="yes">Check In</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="width_request">450</property>
                     <property name="height_request">100</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="can_default">True</property>
+                    <property name="has_default">True</property>
                     <property name="receives_default">True</property>
                     <property name="border_width">5</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_btnCheck_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -200,7 +212,6 @@
                 <child>
                   <object class="GtkLabel" id="label2">
                     <property name="width_request">400</property>
-                    <property name="height_request">75</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Retrive Coat</property>
@@ -209,13 +220,13 @@
                       <attribute name="style" value="oblique"/>
                       <attribute name="weight" value="heavy"/>
                       <attribute name="size" value="300"/>
-                      <attribute name="foreground" value="#ffff00003207"/>
+                      <attribute name="foreground" value="#ae9275d7f785"/>
+                      <attribute name="scale" value="100"/>
                     </attributes>
                   </object>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="padding">10</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -259,11 +270,13 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
+                        <property name="activates_default">True</property>
                         <property name="invisible_char_set">True</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
                         <property name="primary_icon_sensitive">True</property>
                         <property name="secondary_icon_sensitive">True</property>
+                        <signal name="activate" handler="on_entry_activate" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -297,13 +310,15 @@
                 <child>
                   <object class="GtkButton" id="btnRet">
                     <property name="label" translatable="yes">Retrieve</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="width_request">450</property>
                     <property name="height_request">50</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="can_default">True</property>
+                    <property name="has_default">True</property>
                     <property name="receives_default">True</property>
                     <property name="border_width">5</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_btnRet_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -315,13 +330,13 @@
                 <child>
                   <object class="GtkButton" id="btnEnd">
                     <property name="label" translatable="yes">Finished</property>
+                    <property name="use_action_appearance">False</property>
                     <property name="width_request">450</property>
                     <property name="height_request">50</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="border_width">5</property>
-                    <property name="use_action_appearance">False</property>
                     <signal name="clicked" handler="on_btnEnd_clicked" swapped="no"/>
                   </object>
                   <packing>
