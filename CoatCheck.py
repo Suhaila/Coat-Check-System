@@ -8,6 +8,7 @@ import gtk
 import gtk.glade
 import csv
 import serial
+import pango
 
 csvFile = 'Coats.csv'
 buffer = 'buffer.csv'
@@ -18,17 +19,21 @@ found = 0
 class CoatCheckGTK:
 
 	def __init__(self):
-		self.gladefile = "CoatCheckUI.glade"
+		self.gladefile = "CoatCheckUI2.glade"
 		self.glade = gtk.Builder()
 		self.glade.add_from_file(self.gladefile)
 		self.glade.connect_signals(self)
-		self.glade.get_object("MainWindow").show_all()		
+		self.glade.get_object("MainWindow").show_all()
 		
 	def on_MainWindow_destroy(self, widget, data=None):
 		gtk.main_quit()
 	
 	def on_entry_activate(self, widget):
 		widget.get_toplevel().child_focus(gtk.DIR_TAB_FORWARD)
+	def on_entry_CheckName(self, widget):
+		self.glade.get_object("CheckNum").grab_focus()
+	def on_entry_RetName(self, widget):
+		self.glade.get_object("btnRet").grab_focus()
 	
 	def on_btnCheck_clicked(self, widget):
 		# Append a new row to csvFile
@@ -60,6 +65,7 @@ class CoatCheckGTK:
 						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
 				if found == 0:
 						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
+				self.glade.get_object("btnEnd").grab_focus()
 
 	def on_btnEnd_clicked(self, widget):
 		arduino.write('E')
@@ -82,8 +88,8 @@ class CoatCheckGTK:
 				if found == 0:
 						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
 				
-				self.glade.get_object("RetName").set_text('')
-				self.glade.get_object("RetName").grab_focus()
+			self.glade.get_object("RetName").set_text('')
+			self.glade.get_object("RetName").grab_focus()
 		
 		#remove from csv		
 		with open(csvFile, 'rb') as f:
