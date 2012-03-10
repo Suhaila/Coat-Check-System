@@ -1,9 +1,11 @@
-This is a university project that aims to speed up the process of checking in and retrieving a coat at a coat check service.
+This is a project that aims to speed up the process of checking in and retrieving a coat at a coat check service.
 
-To run the 'CoatCheck.py' script:
-- Open up a command prompt (cmd) 
-- Navigate to the directory with the project by typing (replace the "..." with the rest of the path on your local machine):
-	cd 'C:/.../Coat-Check-System/ 
-- In the command prompt, type:
-	python CoatCheck.py
-- VOILA! It should bring up the UI!
+For the font to appear larger in the UI, you need to add the following to this file: 
+"C:\Python27\Lib\site-packages\gtk-2.0\runtime\etc\gtk-2.0\gtkrc"
+
+style "font"
+{
+font_name = "Arial 20"
+}
+widget_class "*" style "font"
+gtk-font-name = "Arial 20"
