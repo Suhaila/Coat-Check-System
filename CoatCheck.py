@@ -59,7 +59,7 @@ class CoatCheckGTK:
 					yummyelement = elementsinrow[1]
 					if len(RetName) == (len(yummyelement) -2):
 						arduino.write(elementsinrow[0])
-						self.glade.get_object("RetNum").set_text(elementsinrow[0])
+						self.glade.get_object("RetNum").set_text("Coat on Hanger # "+ elementsinrow[0])
 						found = 1
 					if found == 0:
 						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
@@ -76,6 +76,7 @@ class CoatCheckGTK:
 			RetName = self.glade.get_object("RetName").get_text()
 			found = 0
 			for row in f:
+				#print f
 				if row.find(RetName) != -1:
 					elementsinrow = row.rsplit(',')
 					yummyelement = elementsinrow[1]
@@ -104,9 +105,8 @@ class CoatCheckGTK:
 				for row in b:
 					f.write(row)
 		
-		
 		self.glade.get_object("RetName").set_text('')
-		self.glade.get_object("RetNum").set_text('Search for hanger')
+		self.glade.get_object("RetNum").set_text('Scan Customer ID')
 		
 		
 if __name__ =="__main__":

@@ -48,7 +48,7 @@ void loop(){
     Mirf.send(data); // Send data back
     //Mirf.send((byte *) &msg);
 
-     if (msg == '3'){
+     if (msg == '2'){
        if (state == 0)
        {
          digitalWrite(6, HIGH);

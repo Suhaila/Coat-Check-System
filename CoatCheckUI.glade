@@ -4,6 +4,7 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="MainWindow">
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Smart Coat Check</property>
     <property name="default_width">1200</property>
     <property name="default_height">600</property>
     <signal name="destroy" handler="on_MainWindow_destroy" swapped="no"/>
@@ -306,7 +307,7 @@
           <object class="GtkLabel" id="RetNum">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Scan Customer's ID</property>
+            <property name="label" translatable="yes">Scan Customer ID</property>
           </object>
           <packing>
             <property name="left_attach">2</property>
