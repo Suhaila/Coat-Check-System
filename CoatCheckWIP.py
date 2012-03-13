@@ -19,7 +19,7 @@ found = 0
 class CoatCheckGTK:
 
 	def __init__(self):
-		self.gladefile = "CoatCheckUI.glade"
+		self.gladefile = "CoatCheckUI2.glade"
 		self.glade = gtk.Builder()
 		self.glade.add_from_file(self.gladefile)
 		self.glade.connect_signals(self)
@@ -125,6 +125,7 @@ class CoatCheckGTK:
 		
 		else:
 			self.glade.get_object("RetNum").set_text('This is not the correct hanger, find hanger ' + HangerNum)
+			self.glade.get_object("HangerNum").set_text('')
 			
 if __name__ =="__main__":
 	# Connect to Arduino
