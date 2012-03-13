@@ -56,7 +56,6 @@ class CoatCheckGTK:
 
 	def on_btnRet_clicked(self, widget): #search for input hanger number, print hangernum
 		with open(csvFile, 'rb') as f:	 # open file for reading - 'rb'
-			#reader = csv.reader(f)
 			RetName = self.glade.get_object("RetName").get_text()
 			found = 0
 			for row in f:
@@ -78,16 +77,13 @@ class CoatCheckGTK:
 		HangerNum = self.glade.get_object("HangerNum").get_text()
 		
 		with open(csvFile, 'rb') as f:	 # open file for reading - 'rb'
-			#reader = csv.reader(f)
 			RetName = self.glade.get_object("RetName").get_text()
 			found = 0
 			for row in f:
-				#print f
 				if row.find(RetName) != -1:
 					elementsinrow = row.rsplit(',')
 					yummyelement = elementsinrow[1]
 					if len(RetName) == (len(yummyelement) -2):
-						#self.glade.get_object("RetNum").set_text(elementsinrow[0])
 						found = 1
 						hangernumber = elementsinrow[0]
 					if found == 0:
@@ -97,12 +93,8 @@ class CoatCheckGTK:
 				
 			self.glade.get_object("RetName").set_text('')
 			self.glade.get_object("RetName").grab_focus()
-		print yummyelement
-		print HangerNum
 		
-		# it doesn't match 
-		if HangerNum == yummyelement: #if the scanned hanger and number in system match, remove it
-			print "boo"
+		if HangerNum == hangernumber: #if the scanned hanger and number in system match, remove it
 			#remove from csv		
 			with open(csvFile, 'rb') as f:
 				with open(buffer, 'wb') as b:
@@ -110,7 +102,7 @@ class CoatCheckGTK:
 					for row in f:
 						elementsinrow = row.rsplit(',')
 						if not elementsinrow[0].startswith(hangernumber):
-							b.write(row)# it's just adding to the file I have no idea how to make it actually overwrite the file. 
+							b.write(row) 
 			with open(csvFile, 'wb') as f:
 				with open(buffer, 'rb') as b:
 					for row in b:
@@ -123,8 +115,8 @@ class CoatCheckGTK:
 			arduino.write('E')
 			# pull 
 		
-		else:
-			self.glade.get_object("RetNum").set_text('This is not the correct hanger, find hanger ' + HangerNum)
+		else: #hanger numbers don't match 
+			self.glade.get_object("RetNum").set_text('This is not the correct hanger, find hanger ' + HangerNum + ' please try again.')
 			self.glade.get_object("HangerNum").set_text('')
 			
 if __name__ =="__main__":
