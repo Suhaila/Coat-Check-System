@@ -19,7 +19,7 @@ found = 0
 class CoatCheckGTK:
 
 	def __init__(self):
-		self.gladefile = "CoatCheckUI2.glade"
+		self.gladefile = "CoatCheckUI.glade"
 		self.glade = gtk.Builder()
 		self.glade.add_from_file(self.gladefile)
 		self.glade.connect_signals(self)
