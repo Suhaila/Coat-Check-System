@@ -19,7 +19,7 @@ found = 0
 class CoatCheckGTK:
 
 	def __init__(self):
-		self.gladefile = "CoatCheckUI.glade"
+		self.gladefile = "CoatCheckUI2.glade"
 		self.glade = gtk.Builder()
 		self.glade.add_from_file(self.gladefile)
 		self.glade.connect_signals(self)
@@ -32,12 +32,18 @@ class CoatCheckGTK:
 		widget.get_toplevel().child_focus(gtk.DIR_TAB_FORWARD)
 	def on_entry_CheckName(self, widget):
 		self.glade.get_object("CheckNum").grab_focus()
+	def on_entry_CheckNum(self, widget):# this doesn't appear to work here
+		self.glade.get_object("btnCheck").grab_focus()
 	def on_entry_RetName(self, widget):
 		self.glade.get_object("btnRet").grab_focus()
+	def on_entry_HangerNum(self, widget):# this doesn't appear to work here
+		self.glade.get_object("btnEnd").grab_focus()
 	
+	
+	# Check in a Customer's Coat
 	def on_btnCheck_clicked(self, widget):
 		# Append a new row to csvFile
-		with open(csvFile, 'ab') as f:		# open file for appending - 'ab'
+		with open(csvFile, 'ab') as f:		
 			writer = csv.writer(f)
 			Name = self.glade.get_object("CheckName").get_text()
 			Hanger = self.glade.get_object("CheckNum").get_text()
@@ -47,10 +53,12 @@ class CoatCheckGTK:
 			self.glade.get_object("CheckNum").set_text('')
 			# Move focus to Name field
 			self.glade.get_object("CheckName").grab_focus()
+			#show what is stored
+			self.glade.get_object("CheckDetails").set_text(Name + ' is on hanger # ' + Hanger)
 
-	def on_btnRet_clicked(self, widget): #search for input hanger number, print hangernum
-		with open(csvFile, 'rb') as f:	 # open file for reading - 'rb'
-			#reader = csv.reader(f)
+	# Search for Customer's Coat
+	def on_btnRet_clicked(self, widget):
+		with open(csvFile, 'rb') as f:
 			RetName = self.glade.get_object("RetName").get_text()
 			found = 0
 			for row in f:
@@ -58,57 +66,61 @@ class CoatCheckGTK:
 					elementsinrow = row.rsplit(',')
 					yummyelement = elementsinrow[1]
 					if len(RetName) == (len(yummyelement) -2):
-						arduino.write(elementsinrow[0])
-						self.glade.get_object("RetNum").set_text("Coat on Hanger # "+ elementsinrow[0])
+						#arduino.write(elementsinrow[0])
+						self.glade.get_object("RetText").set_text(RetName + "'s coat is on hanger # "+ elementsinrow[0])
 						found = 1
-					if found == 0:
-						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
+						self.glade.get_object("HangerNum").grab_focus()
+					
 				if found == 0:
-						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
-				self.glade.get_object("btnEnd").grab_focus()
+					self.glade.get_object("RetText").set_text("*** Did not find name ***")
+					self.glade.get_object("RetName").grab_focus() 	 
 
 	def on_btnEnd_clicked(self, widget):
-		arduino.write('E')
-		# pull 
+		
+		HangerNum = self.glade.get_object("HangerNum").get_text()
 		
 		with open(csvFile, 'rb') as f:	 # open file for reading - 'rb'
-			#reader = csv.reader(f)
 			RetName = self.glade.get_object("RetName").get_text()
 			found = 0
 			for row in f:
-				#print f
 				if row.find(RetName) != -1:
 					elementsinrow = row.rsplit(',')
 					yummyelement = elementsinrow[1]
 					if len(RetName) == (len(yummyelement) -2):
-						#self.glade.get_object("RetNum").set_text(elementsinrow[0])
 						found = 1
 						hangernumber = elementsinrow[0]
-					if found == 0:
-						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
+					
 				if found == 0:
-						self.glade.get_object("RetNum").set_text("*** Did not find name ***")
+					self.glade.get_object("RetText").set_text("*** Did not find name ***")
 				
+			#self.glade.get_object("RetName").set_text('')
+			#self.glade.get_object("RetName").grab_focus()
+		
+		if HangerNum == hangernumber: #if the scanned hanger and number in system match, remove it
+			#remove from csv		
+			with open(csvFile, 'rb') as f:
+				with open(buffer, 'wb') as b:
+					writer = csv.writer(b)
+					for row in f:
+						elementsinrow = row.rsplit(',')
+						if not elementsinrow[0].startswith(hangernumber):
+							b.write(row) 
+			with open(csvFile, 'wb') as f:
+				with open(buffer, 'rb') as b:
+					for row in b:
+						f.write(row)
+		
 			self.glade.get_object("RetName").set_text('')
 			self.glade.get_object("RetName").grab_focus()
+			self.glade.get_object("HangerNum").set_text('')
+			self.glade.get_object("RetText").set_text('Scan Customer ID')
+			arduino.write('E')
 		
-		#remove from csv		
-		with open(csvFile, 'rb') as f:
-			with open(buffer, 'wb') as b:
-				writer = csv.writer(b)
-				for row in f:
-					elementsinrow = row.rsplit(',')
-					if not elementsinrow[0].startswith(hangernumber):
-						b.write(row)# it's just adding to the file I have no idea how to make it actually overwrite the file. 
-		with open(csvFile, 'wb') as f:
-			with open(buffer, 'rb') as b:
-				for row in b:
-					f.write(row)
-		
-		self.glade.get_object("RetName").set_text('')
-		self.glade.get_object("RetNum").set_text('Scan Customer ID')
-		
-		
+		else: #hanger numbers don't match 
+			self.glade.get_object("RetText").set_text('Incorrect hanger. Please find # ' + hangernumber + '.')
+			self.glade.get_object("HangerNum").set_text('')
+			self.glade.get_object("HangerNum").grab_focus()
+			
 if __name__ =="__main__":
 	# Connect to Arduino
 	try:  
